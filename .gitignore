@@ -2,6 +2,12 @@
 __pycache__/
 *.py[cod]
 
+
+# Neural Artistic Style Resources & Output
+out.png
+animation/
+imagenet-vgg-verydeep-19.mat
+
 # C extensions
 *.so
 
