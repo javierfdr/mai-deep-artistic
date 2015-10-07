@@ -8,6 +8,9 @@ out.png
 animation/
 imagenet-vgg-verydeep-19.mat
 
+# PyCharm
+.idea/
+
 # C extensions
 *.so
 
