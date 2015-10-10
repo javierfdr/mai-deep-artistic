@@ -12,6 +12,12 @@ from neural_artistic_style import imread
 from neural_artistic_style import weight_array
 from neural_artistic_style import to_bc01
 from gram_net import GramNet
+import scipy.io
+
+
+def get_filename_without_extension(path):
+    filename = os.path.basename(path)
+    return os.path.splitext(filename)[0]
 
 
 def weight_tuple(s):
@@ -33,6 +39,10 @@ def run():
     # Added by Phil
     parser.add_argument('--src1', required=True, type=str,
                         help='First image to be compared.')
+    parser.add_argument('--mat-path', required=True, type=str,
+                        help='Path where the grams should be stored.')
+
+    # Optionals
     parser.add_argument('--vgg19', default='imagenet-vgg-verydeep-19.mat',
                         type=str, help='VGG-19 .mat file.')
     parser.add_argument('--pool-method', default='avg', type=str,
@@ -50,13 +60,20 @@ def run():
 
     # Setup network
     style_weights = weight_array(args.style_weights)
-    net = GramNet(layers, to_bc01(style_img), style_weights)
+    net = GramNet(layers, style_weights)
 
-    for i, gram in enumerate(net.style_grams):
+    # Compute style grams
+    grams = net.compute_grams(to_bc01(style_img))
+
+    # Store style grams
+    filename = get_filename_without_extension(args.src1)
+    for i, gram in enumerate(grams):
         if gram is not None:
-            print("{}: Shape: {}".format(i, net.style_grams[i].shape))
-        else:
-            print("{}: None".format(i))
+            print(gram.__class__.__name__)
+            print("Layer {}: Shape: {}".format(i, gram.shape))
+            path = os.path.join(args.mat_path, "{}_{}x{}".format(filename, gram.shape[0], gram.shape[1]))
+            scipy.io.savemat(path, dict(data=gram.__array__()))
+
 
 if __name__ == "__main__":
     run()

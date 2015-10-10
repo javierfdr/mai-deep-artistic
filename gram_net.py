@@ -8,8 +8,7 @@ from style_network import gram_matrix
 
 
 class GramNet(Model):
-    def __init__(self, layers, image, style_weights):
-
+    def __init__(self, layers, style_weights):
         # Map weights (in convolution indices) to layer indices
         self.style_weights = np.zeros(len(layers))
         layers_len = 0
@@ -27,6 +26,7 @@ class GramNet(Model):
         # Wrap convolution layers for better performance
         self.layers = [Convolution(l) if isinstance(l, dp.Convolution) else l for l in layers]
 
+    def compute_grams(self, image):
         # Setup network
         x_shape = image.shape
         self.x = Parameter(image)
@@ -43,6 +43,8 @@ class GramNet(Model):
             if self.style_weights[l] > 0:
                 gram = gram_matrix(next_style)
                 self.style_grams[l] = gram
+
+        return self.style_grams;
 
     @property
     def image(self):

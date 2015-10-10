@@ -5,10 +5,23 @@ import argparse
 import numpy as np
 import scipy.misc
 import deeppy as dp
-
+import time
+    
 from matconvnet import vgg19_net
 from style_network import StyleNetwork
 
+def play_done_sound():
+  print('\a')
+  time.sleep(0.1)
+  print('\a')
+  time.sleep(0.1)
+  print('\a')
+  time.sleep(0.1)
+  print('\a')
+  time.sleep(0.1)
+  print('\a')
+  time.sleep(0.1)
+  
 
 def weight_tuple(s):
     try:
@@ -133,6 +146,8 @@ def run():
             learn_rule.step(param, state)
         print('Iteration: %i, cost: %.4f' % (i, cost))
     imsave(args.output, net_img())
+
+    play_done_sound()
 
 
 if __name__ == "__main__":
