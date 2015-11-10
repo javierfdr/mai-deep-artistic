@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!--link rel="shortcut icon" href="../../assets/ico/favicon.ico"-->
+
+    <title>Starter Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+    <!-- Custom styles for this template -->
+    <link href="static/css/starter-template.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body ng-controller="SearchCtrl">
+    {% raw %}
+    <!-- {% raw %} because otherwise the flask template conflict with the angular one  -->
+    <div id="wrap">
+      <div class="container" role="main">
+
+        <div class="row">
+
+          <div class="col-md-6 col-md-offset-3">
+            <h2 class="text-center search-header">Style Search</h2>
+            <p class="text-center">Find images of similar style. Just provide an example image:</p>
+            <div ngf-drop ngf-select ng-model="file" class="drop-box" ngf-drag-over-class="'dragover'" accept="image/*" ngf-pattern="'image/*'">
+              {{message}}
+            </div>
+          </div>
+        </div>
+        <div id="push"></div>
+      </div><!-- /.container -->
+    </div>
+
+
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">
+          <a href="#/search">Search</a> | <a href="#/about">About</a>
+          <span class="pull-right">ISP Project by: Waseem Ghrayeb, Javier Fernandez and Philipp Oliver</span>
+        </p>
+      </div>
+    </div>
+    {% endraw %}
+  </body>
+
+  <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
+  <script src="static/js/angularapp.js"></script>
+  <script src="static/js/ng-file-upload-all.min.js"></script>
+</html>
